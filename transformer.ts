@@ -358,6 +358,24 @@ function getImportNodeRealPath(node: ts.ImportDeclaration): string {
             return require.resolve(`${nodePath}.${extension}`)
         } catch(e) { }
     }
+
+    // in case the extensions need to be added AFTER resolution finds package.json
+    if (e.path) {
+      try {
+        // error may contain the path to package.json
+        const packageJSONPath = e.path;
+        const packageJSON = require(packageJSONPath);
+        if (packageJSON && packageJSON.main) {
+          for (const extension of ["js", "jsx", "ts", "tsx"]) {
+            // resolve name with extension relative to package.json's parent directory
+            return require.resolve(`${packageJSON.main}.${extension}`, {
+              paths: [path.dirname(packageJSONPath)],
+            });
+          }
+        }
+      } catch (e) {} //in case of error, give up and throw the original error
+    }
+
     //if none of the extensions worked
     throw e
   }
