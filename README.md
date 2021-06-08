@@ -1,3 +1,7 @@
+# Check in Your Build Artifacts!
+This fork of the repo is meant to installable. If you make changes, rebuild and recommit the build artifacts to the repo to reflect them.
+
+
 # io-ts-transformer
 TypeScript transformer which converts TypeScript types to io-ts entities
 
@@ -238,3 +242,6 @@ Thanks to:
 # License
 
 MIT
+
+
+# Check in Your Build Artifacts!

@@ -1,7 +1,6 @@
 /.idea
 /.vscode
 /.history
-/node_modules
 /dist
-transformer.js
+/node_modules
 rollup.config.js
