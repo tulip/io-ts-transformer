@@ -226,9 +226,12 @@ function getImportNodeRealPath(node) {
                     try {
                         for (var _e = __values(["js", "jsx", "ts", "tsx"]), _f = _e.next(); !_f.done; _f = _e.next()) {
                             var extension = _f.value;
-                            return require.resolve(packageJSON.main + "." + extension, {
-                                paths: [path.dirname(packageJSONPath)],
-                            });
+                            try {
+                                return require.resolve(packageJSON.main + "." + extension, {
+                                    paths: [path.dirname(packageJSONPath)],
+                                });
+                            }
+                            catch (e) { }
                         }
                     }
                     catch (e_2_1) { e_2 = { error: e_2_1 }; }

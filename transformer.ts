@@ -367,10 +367,12 @@ function getImportNodeRealPath(node: ts.ImportDeclaration): string {
         const packageJSON = require(packageJSONPath);
         if (packageJSON && packageJSON.main) {
           for (const extension of ["js", "jsx", "ts", "tsx"]) {
-            // resolve name with extension relative to package.json's parent directory
-            return require.resolve(`${packageJSON.main}.${extension}`, {
-              paths: [path.dirname(packageJSONPath)],
-            });
+            try {
+              // resolve name with extension relative to package.json's parent directory
+              return require.resolve(`${packageJSON.main}.${extension}`, {
+                paths: [path.dirname(packageJSONPath)],
+              });
+            } catch (e) {}
           }
         }
       } catch (e) {} //in case of error, give up and throw the original error
@@ -1691,3 +1693,4 @@ function getNodeVisitor(
     return convertTypeToIoTsType(type, ioTsInstanceName, usages, typeChecker, program, context)
   }
 }
+
