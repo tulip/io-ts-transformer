@@ -203,10 +203,10 @@ function getImportNodeRealPath(node) {
     }
     catch (e) {
         try {
-            for (var _c = __values(['ts', 'tsx']), _d = _c.next(); !_d.done; _d = _c.next()) {
+            for (var _c = __values(['.ts', '.tsx', '/index.ts']), _d = _c.next(); !_d.done; _d = _c.next()) {
                 var extension = _d.value;
                 try {
-                    return require.resolve(nodePath + "." + extension);
+                    return require.resolve("" + nodePath + extension);
                 }
                 catch (e) { }
             }
